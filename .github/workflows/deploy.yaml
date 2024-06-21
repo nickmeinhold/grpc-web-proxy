@@ -42,5 +42,5 @@ jobs:
           context: .
           push: true
           tags: |
-             us-central1-docker.pkg.dev/projects-monthly/image-repo/discord-interaction-to-pubsub-artifact-image:${{ steps.get-tag.outputs.short_ref }}
-             us-central1-docker.pkg.dev/projects-monthly/image-repo/discord-interaction-to-pubsub-artifact-image:latest
+            us-central1-docker.pkg.dev/adventures-in-tech-world-0/envoy-proxy-repo/envoy-proxy-image:${{ steps.get-tag.outputs.short_ref }}
+            us-central1-docker.pkg.dev/adventures-in-tech-world-0/envoy-proxy-repo/envoy-proxy-image:latest

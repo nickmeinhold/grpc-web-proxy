@@ -5,11 +5,11 @@
 You can set these to whatever you want.
 
 ```sh
+export PROJECT_ID=`gcloud config get-value core/project`
+export PROJECT_NUMBER=`gcloud projects describe $PROJECT_ID --format='value(projectNumber)'`
 export WORKLOAD_IDENTITY_POOL=github-actions-pool
 export WORKLOAD_PROVIDER=github-actions-oidc
 export LOCATION=global
-export PROJECT_NUMBER=<your-project-number>
-export PROJECT_ID=<your-project-id>
 export SERVICE_ACCOUNT_NAME=envoy-app-sa
 export REPOSITORY_OWNER=<your-github-org-or-username>
 export REPOSITORY_NAME=<your-github-repo-name>

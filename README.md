@@ -65,6 +65,7 @@ echo ${SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com
 
 ## Create a new release to initiate GitHub Actions workflow
 
-- From the GitHub repository page, under "Releases" select "New release"
-- Give the relase a new tag
-- Click "Create release"
+- From the GitHub repository page, click on "Releases"
+- Click on "Draft a new release"
+- Under "Choose a tag", create a new tag
+- Click "Publish release"

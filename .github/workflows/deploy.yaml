@@ -21,8 +21,8 @@ jobs:
         uses: 'google-github-actions/auth@v2'
         with:
           token_format: access_token
-          workload_identity_provider: projects/614230417388/locations/global/workloadIdentityPools/workload-identity-pool/providers/github-actions-oidc
-          service_account: envoy-app-sa@adventures-in-tech-world-0.iam.gserviceaccount.com
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
           access_token_lifetime: 300s
       
       - name: Login to Artifact Registry
@@ -44,3 +44,13 @@ jobs:
           tags: |
             us-central1-docker.pkg.dev/adventures-in-tech-world-0/envoy-proxy-repo/envoy-proxy-image:${{ steps.get-tag.outputs.short_ref }}
             us-central1-docker.pkg.dev/adventures-in-tech-world-0/envoy-proxy-repo/envoy-proxy-image:latest
+      
+      - name: Deploy container image to Cloud Run
+        id: 'deploy'
+        uses: 'google-github-actions/deploy-cloudrun@v2'
+        with:
+          service: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          image: us-central1-docker.pkg.dev/adventures-in-tech-world-0/envoy-proxy-repo/envoy-proxy-image:latest
+
+      - name: 'Use output'
+        run: 'curl "${{ steps.deploy.outputs.url }}"'

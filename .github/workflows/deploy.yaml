@@ -49,7 +49,7 @@ jobs:
         id: 'deploy'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
-          service: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          service: envoy-proxy-service
           image: us-central1-docker.pkg.dev/adventures-in-tech-world-0/envoy-proxy-repo/envoy-proxy-image:latest
 
       - name: 'Use output'

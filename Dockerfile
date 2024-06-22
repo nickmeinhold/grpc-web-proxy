@@ -1,25 +1,4 @@
-# FROM envoyproxy/envoy-alpine:v1.17.0  
-# COPY envoy.yaml /etc/envoy/envoy.yaml
-# RUN apk --no-cache add ca-certificates
-
-# Use latest stable channel SDK.
-FROM dart:stable AS build
-
-# Resolve app dependencies.
-WORKDIR /app
-COPY pubspec.* ./
-RUN dart pub get
-
-# Copy app source code (except anything in .dockerignore) and AOT compile app.
-COPY . .
-RUN dart compile exe bin/server.dart -o bin/server
-
-# Build minimal serving image from AOT-compiled `/server`
-# and the pre-built AOT-runtime in the `/runtime/` directory of the base image.
-FROM scratch
-COPY --from=build /runtime/ /
-COPY --from=build /app/bin/server /app/bin/
-
-# Start server.
-EXPOSE 8080
-CMD ["/app/bin/server"]
+FROM envoyproxy/envoy-alpine:v1.21-latest
+COPY envoy.yaml /etc/envoy/envoy.yaml
+RUN apk --no-cache add ca-certificates
+ENTRYPOINT /usr/local/bin/envoy -c /etc/envoy/envoy.yaml -l trace
